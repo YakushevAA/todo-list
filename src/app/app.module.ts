@@ -22,7 +22,7 @@ const localStorageService = new LocalStorageService();
     BrowserModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({}, {
-      initialState: localStorageService.getItem('state'),
+      initialState: localStorageService.getItem('state') || {},
       metaReducers: localStorageMetaReducerFactory(new LocalStorageService())
     }),
     TodoModule

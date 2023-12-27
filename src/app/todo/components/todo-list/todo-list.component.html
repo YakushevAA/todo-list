@@ -1,24 +1,47 @@
-
-<mat-action-list *ngFor="let todo of todos | filterTodoByStatus: todoStatus.InProgress; trackBy: trackById">
-  <app-todo-item [item]="todo"></app-todo-item>
-</mat-action-list>
-
-<mat-accordion>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Postponed</mat-panel-title>
-    </mat-expansion-panel-header>
-      <mat-action-list *ngFor="let todo of todos | filterTodoByStatus: todoStatus.Postponed; trackBy: trackById">
+<div cdkDropListGroup>
+  <div
+    cdkDropList
+    [cdkDropListData]="todos | filterTodoByStatus: todoStatus.InProgress"
+    class="drop-area"
+    [id]="todoStatus.InProgress"
+    cdkDropListSortingDisabled
+    (cdkDropListDropped)="drop($event)">
+    <mat-action-list id="todo.id" cdkDrag *ngFor="let todo of todos | filterTodoByStatus: todoStatus.InProgress; trackBy: trackById">
+      <app-todo-item [item]="todo"></app-todo-item>
+    </mat-action-list>
+  </div>
+  
+  <mat-accordion multi>
+    <mat-expansion-panel
+      cdkDropList
+      [cdkDropListData]="todos | filterTodoByStatus: todoStatus.Postponed"
+      class="drop-area"
+      cdkDropListSortingDisabled
+      [id]="todoStatus.Postponed"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>Postponed</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-action-list id="todo.id" cdkDrag *ngFor="let todo of todos | filterTodoByStatus: todoStatus.Postponed; trackBy: trackById">
         <app-todo-item [item]="todo"></app-todo-item>
       </mat-action-list>
-  </mat-expansion-panel>
-
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>Completed</mat-panel-title>
-    </mat-expansion-panel-header>
-      <mat-action-list *ngFor="let todo of todos | filterTodoByStatus: todoStatus.Completed; trackBy: trackById">
+    </mat-expansion-panel>
+    <mat-expansion-panel
+      cdkDropList
+      [cdkDropListData]="todos | filterTodoByStatus: todoStatus.Completed"
+      class="drop-area"
+      cdkDropListSortingDisabled
+      [id]="todoStatus.Completed"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>Completed</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-action-list id="todo.id" *ngFor="let todo of todos | filterTodoByStatus: todoStatus.Completed; trackBy: trackById">
         <app-todo-item [item]="todo"></app-todo-item>
       </mat-action-list>
-  </mat-expansion-panel>
-</mat-accordion>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+

@@ -39,9 +39,8 @@ export class TodoComponent implements OnInit {
     this.currentDate = new Date();
   }
 
-  public handleTodoStatusChange(event: { todo: TodoItem, newStatus: TodoStatus }): void {
-    console.log('--------event', event);
-    this.store.dispatch(TodoActions.updateTodo({ id: event.todo.id, status: event.newStatus }));
+  public handleTodoStatusChange(event: { id: TodoItem['id'], newStatus: TodoStatus }): void {
+    this.store.dispatch(TodoActions.updateTodo({ id: event.id, status: event.newStatus }));
   }
 
   public resetProgress(): void {
