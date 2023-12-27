@@ -1,0 +1,25 @@
+<div class="todo-container">
+  <mat-toolbar color="primary" class="todo-toolbar">
+    <span>{{ currentDate | date: 'EEEE, d MMM, y' }}</span>
+    <span class="toolbar-spacer"></span>
+    <app-todo-filter (filterUpdate)="handleFilterUpdate($event)"></app-todo-filter>
+  </mat-toolbar>
+
+  <div class="todo-content">
+    <app-todo-progress 
+      [completedPercentage]="(todos$ | async)?.completedPercentage || 0" 
+      [postponedPercentage]="(todos$ | async)?.postponedPercentage || 0">
+    </app-todo-progress>
+    <app-todo-add></app-todo-add>
+    <ng-container *ngIf="todos$ | async as data">
+      <app-todo-list
+        [todos]="data.todos"
+        (todoStatusChange)="handleTodoStatusChange($event)"
+      ></app-todo-list>
+    </ng-container>
+  </div>
+  <div class="buttons-container">
+    <button (click)="deleteAll()" mat-raised-button color="warn">Delete All</button>
+    <button (click)="resetProgress()" mat-raised-button color="primary">Reset Progress</button>
+  </div>
+</div>

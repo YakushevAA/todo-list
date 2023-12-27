@@ -6,11 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public currentDate: Date;
-
-  constructor() {}
-
-  ngOnInit() {
-    this.currentDate = new Date();
-  }
 }

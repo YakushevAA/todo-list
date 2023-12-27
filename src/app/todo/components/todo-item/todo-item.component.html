@@ -1,0 +1,13 @@
+<mat-list-item class="todo-item">
+  <h4 matLine>{{item.name}}</h4>
+  <mat-icon matListIcon>event</mat-icon>
+  <button *ngIf="item.status !== todoStatus.Completed" (click)="updateItem(todoStatus.Completed)" mat-icon-button aria-label="Mark as done">
+    <mat-icon>done</mat-icon>
+  </button>
+  <button *ngIf="item.status !== todoStatus.Postponed" (click)="updateItem(todoStatus.Postponed)" mat-icon-button aria-label="Postpone">
+    <mat-icon>snooze</mat-icon>
+  </button>
+  <button (click)="deleteItem()" mat-icon-button color="warn" aria-label="Delete">
+    <mat-icon>delete</mat-icon>
+  </button>
+</mat-list-item>

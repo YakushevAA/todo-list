@@ -3,7 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './common/modules/material.module';
+import { StoreModule, MetaReducer } from '@ngrx/store';
+import { TodoModule } from './todo/todo.module';
+import { LocalStorageService } from './core/services/local-storage.service';
+import { localStorageSyncReducer } from './core/store/meta-reducers/local-storage-sync.reducer';
+
+export function localStorageMetaReducerFactory(localStorageService: LocalStorageService): MetaReducer<any, any>[] {
+  return [localStorageSyncReducer(localStorageService)];
+}
+
+const localStorageService = new LocalStorageService();
 
 @NgModule({
   declarations: [
@@ -12,7 +21,11 @@ import { MaterialModule } from './common/modules/material.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialModule
+    StoreModule.forRoot({}, {
+      initialState: localStorageService.getItem('state'),
+      metaReducers: localStorageMetaReducerFactory(new LocalStorageService())
+    }),
+    TodoModule
   ],
   providers: [],
   bootstrap: [AppComponent]

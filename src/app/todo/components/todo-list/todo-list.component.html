@@ -1,0 +1,24 @@
+
+<mat-action-list *ngFor="let todo of todos | filterTodoByStatus: todoStatus.InProgress; trackBy: trackById">
+  <app-todo-item [item]="todo"></app-todo-item>
+</mat-action-list>
+
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Postponed</mat-panel-title>
+    </mat-expansion-panel-header>
+      <mat-action-list *ngFor="let todo of todos | filterTodoByStatus: todoStatus.Postponed; trackBy: trackById">
+        <app-todo-item [item]="todo"></app-todo-item>
+      </mat-action-list>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Completed</mat-panel-title>
+    </mat-expansion-panel-header>
+      <mat-action-list *ngFor="let todo of todos | filterTodoByStatus: todoStatus.Completed; trackBy: trackById">
+        <app-todo-item [item]="todo"></app-todo-item>
+      </mat-action-list>
+  </mat-expansion-panel>
+</mat-accordion>

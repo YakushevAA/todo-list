@@ -1,0 +1,11 @@
+<form [formGroup]="todoForm" (ngSubmit)="addTodo()" class="todo-form">
+  <mat-form-field class="todo-input">
+    <input matInput placeholder="Add new item" formControlName="name">
+    <mat-error *ngIf="todoForm.controls['name'].invalid && todoForm.controls['name'].touched">
+      This field is required
+    </mat-error>
+  </mat-form-field>
+  <button mat-mini-fab color="primary" type="submit" aria-label="Add todo" [disabled]="todoForm.invalid">
+    <mat-icon>add</mat-icon>
+  </button>
+</form>
